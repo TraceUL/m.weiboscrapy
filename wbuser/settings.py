@@ -15,6 +15,18 @@ SPIDER_MODULES = ['wbuser.spiders']
 NEWSPIDER_MODULE = 'wbuser.spiders'
 
 
+
+#分布式搭设
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+REDIS_URL = 'redis://user:pass@hostname:9001'
+#example'redis://root:passworw@45.77.76.188:6379'
+
+
+
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wbuser (+http://www.yourdomain.com)'
 
@@ -65,8 +77,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'wbuser.pipelines.WbuserPipeline': 300,
-    # 'wbuser.pipelines.MongoPipeline':301
+   'scrapy_redis.pipelines.RedisPipeline': 300,
+    'wbuser.pipelines.MongoPipeline':301
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
